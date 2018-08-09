@@ -1,0 +1,12 @@
+{
+  "host": "0.0.0.0",
+  "useHTTP": true,
+  "HTTPPort": 1204,
+  "useHTTPS": false,
+  "HTTPSPort": 1205,
+  "certFile": "config/cert/server.crt",
+  "keyFile": "config/cert/server.key",
+  "readTimeout": 15,
+  "writeTimeout": 15,
+  "idleTimeout": 15
+}

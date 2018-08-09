@@ -1,3 +1,3 @@
 # gopx-vcs-api
 
-The API service for VCS registry
+The internal API service for VCS registry.
