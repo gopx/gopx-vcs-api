@@ -7,9 +7,11 @@ import (
 	"os"
 	"runtime"
 	"strconv"
+	"strings"
 	"time"
 
 	"gopx.io/gopx-common/log"
+	"gopx.io/gopx-common/str"
 	"gopx.io/gopx-vcs-api/pkg/config"
 	"gopx.io/gopx-vcs-api/pkg/route"
 )
@@ -21,7 +23,20 @@ func init() {
 }
 
 func main() {
+	checkRequiredEnvSetup()
 	startServer()
+}
+
+func checkRequiredEnvSetup() {
+	authKeyEnv, ok := os.LookupEnv(config.Env.GoPxVCSAPIAuthKey)
+	if !ok {
+		log.Fatal("Env variable %s is not set", config.Env.GoPxVCSAPIAuthKey)
+	}
+
+	authKeyEnv = strings.TrimSpace(authKeyEnv)
+	if str.IsEmpty(authKeyEnv) {
+		log.Fatal("Env variable %s can't be empty", config.Env.GoPxVCSAPIAuthKey)
+	}
 }
 
 func startServer() {

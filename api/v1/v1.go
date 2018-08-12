@@ -11,10 +11,6 @@ func RegisterRoutes(r *mux.Router) {
 		Methods("POST").
 		HandlerFunc(handler.PackagesPOST)
 
-	r.Path("/packages/{packageName}/readme").
-		Methods("GET").
-		HandlerFunc(handler.SinglePackageReadmeGET)
-
 	r.Path("/packages/{packageName}").
 		Methods("DELETE").
 		HandlerFunc(handler.SinglePackageDELETE)

@@ -1,7 +1,9 @@
 package helper
 
 import (
-	"gopx.io/errors"
+	"os"
+
+	"github.com/pkg/errors"
 	"gopx.io/gopx-vcs-api/api/v1/auth"
 	"gopx.io/gopx-vcs-api/pkg/config"
 )
@@ -16,11 +18,11 @@ func AuthRequest(authValue string) (ok bool, err error) {
 
 	switch v := authType.(type) {
 	case *auth.AuthenticationTypeAuthKey:
-		if v.AuthKey() == config.Env.GoPxVCSAPIAuthKey {
+		if v.AuthKey() == os.Getenv(config.Env.GoPxVCSAPIAuthKey) {
 			ok = true
 		}
 	default:
-		err = errors.Errorf("Auth type %s is not supported yet", v.Name())
+		err = errors.Errorf("Auth type %s is not supported", v.Name())
 	}
 
 	return
