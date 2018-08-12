@@ -1,9 +1,9 @@
 {
   "host": "127.0.0.1",
   "useHTTP": true,
-  "HTTPPort": 1204,
+  "HTTPPort": 1206,
   "useHTTPS": false,
-  "HTTPSPort": 1205,
+  "HTTPSPort": 1207,
   "certFile": "config/cert/server.crt",
   "keyFile": "config/cert/server.key",
   "readTimeout": 15,
