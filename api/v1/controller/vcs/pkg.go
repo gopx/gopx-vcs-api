@@ -6,14 +6,15 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"time"
 
 	"github.com/Masterminds/semver"
 	"github.com/pkg/errors"
-	uuid "github.com/satori/go.uuid"
 	git "gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/config"
 	"gopkg.in/src-d/go-git.v4/plumbing/transport"
 	"gopx.io/gopx-common/fs"
+	"gopx.io/gopx-vcs-api/api/v1/controller/helper"
 	"gopx.io/gopx-vcs-api/api/v1/types"
 )
 
@@ -255,13 +256,7 @@ func DeletePackage(pkgName string) (err error) {
 		return
 	}
 
-	uuid, err := uuid.NewV4()
-	if err != nil {
-		err = errors.Wrapf(err, "Failed to generate a UUID [%s]", pkgName)
-		return
-	}
-
-	repoDelPath := fmt.Sprintf("%s-%s.deleted", repoPath, uuid.String())
+	repoDelPath := fmt.Sprintf("%s-%s.deleted", repoPath, helper.FormatTime(time.Now()))
 
 	err = os.Rename(repoPath, repoDelPath)
 	if err != nil {

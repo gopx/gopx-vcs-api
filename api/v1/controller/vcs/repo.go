@@ -9,12 +9,12 @@ import (
 
 	"github.com/Masterminds/semver"
 	"github.com/pkg/errors"
-	uuid "github.com/satori/go.uuid"
 	git "gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/plumbing"
 	"gopkg.in/src-d/go-git.v4/plumbing/object"
 	"gopx.io/gopx-common/fs"
 	"gopx.io/gopx-vcs-api/api/v1/constants"
+	"gopx.io/gopx-vcs-api/api/v1/controller/helper"
 	"gopx.io/gopx-vcs-api/api/v1/types"
 	"gopx.io/gopx-vcs-api/pkg/config"
 )
@@ -168,13 +168,7 @@ func resolvePackageRepo(pkgName string) (err error) {
 }
 
 func careCorruptedRepo(rPath string) (err error) {
-	uuid, err := uuid.NewV4()
-	if err != nil {
-		err = errors.Wrapf(err, "Failed to generate a UUID [%s]", extractPkgName(rPath))
-		return
-	}
-
-	repoCorrPath := fmt.Sprintf("%s-%s.corrupted", rPath, uuid.String())
+	repoCorrPath := fmt.Sprintf("%s-%s.corrupted", rPath, helper.FormatTime(time.Now()))
 
 	err = os.Rename(rPath, repoCorrPath)
 	if err != nil {
